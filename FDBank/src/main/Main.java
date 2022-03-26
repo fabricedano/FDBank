@@ -11,8 +11,8 @@ import components.Client;
 /**
  * @author Fabrice
  *
+ * 1.1.2 Creation of main class for tests
  */
-// 1.1.2 Creation of main class for tests
 public class Main {
 
 	static List<Client> Clients;

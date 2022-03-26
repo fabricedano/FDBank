@@ -8,13 +8,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Fabrice
  *
+ * 1.1.1 Creation of the client class
  */
-//  1.1.1 Creation of the client class
 public class Client {
-
-	/**
-	 * @param args
-	 */
 	private static AtomicInteger atomicInteger = new AtomicInteger(0);
 	private String name;
 	private String firstName;
@@ -48,7 +44,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return this.clientNumber + " " + this.name + " " + this.firstName;
+		return "Client [name=" + name + ", firstName=" + firstName + ", clientNumber=" + clientNumber + "]";
 	}
 
 }
