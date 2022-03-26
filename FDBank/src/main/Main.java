@@ -4,9 +4,13 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import components.Account;
 import components.Client;
+import components.CurrentAccount;
+import components.SavingsAccount;
 
 /**
  * @author Fabrice
@@ -16,17 +20,20 @@ import components.Client;
 public class Main {
 
 	static List<Client> Clients;
+	static List<Account> Accounts;
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		int nbClient = Integer.parseInt("3");
-		Clients = loadArray(nbClient);
-		displayContent(Clients);
+		Clients = loadClients(nbClient);
+		displayClients(Clients);
+		Accounts = loadAccounts(Clients);
+		displayAccounts(Accounts);
 	}
 
-	public static List<Client> loadArray(int nbClient) {
+	public static List<Client> loadClients(int nbClient) {
 		String name = "name";
 		String firstName = "firstname";
 		List<Client> result = new ArrayList<>();
@@ -37,9 +44,27 @@ public class Main {
 		return result;
 	}
 	
-	public static void displayContent(List<Client> listClient) {
+	public static void displayClients(List<Client> listClient) {
 		for(Client c : listClient) {
 			System.out.println(c.toString());
+		}
+	}
+	
+	// 1.2.3 Creation of the table account
+	
+	public static List<Account> loadAccounts(List<Client> listClient) {
+		List<Account> result = new ArrayList<>();
+		for(Client c : listClient) {
+			CurrentAccount ca = new CurrentAccount("Current", c);
+			SavingsAccount sa = new SavingsAccount("Savings", c);
+			Collections.addAll(result, ca, sa);
+		}
+		return result;
+	}
+	
+	public static void displayAccounts(List<Account> listAccount) {
+		for(Account a : listAccount) {
+			System.out.println(a.toString());
 		}
 	}
 }
