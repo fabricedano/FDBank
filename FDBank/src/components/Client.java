@@ -1,3 +1,4 @@
+package components;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -45,16 +46,9 @@ public class Client {
 		return clientNumber;
 	}
 
-	public void setClientNumber(int clientNumber) {
-		this.clientNumber = clientNumber;
-	}
-	
+	@Override
 	public String toString() {
 		return this.clientNumber + " " + this.name + " " + this.firstName;
-	}
-	
-	public static void main(String[] args) {
-		
 	}
 
 }
