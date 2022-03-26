@@ -5,6 +5,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 
 import components.Account;
@@ -19,18 +20,21 @@ import components.SavingsAccount;
  */
 public class Main {
 
-	static List<Client> Clients;
-	static List<Account> Accounts;
+	static List<Client> clients;
+	static List<Account> accounts;
+	static Hashtable<Integer, Account> accountTable;
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		int nbClient = Integer.parseInt("3");
-		Clients = loadClients(nbClient);
-		displayClients(Clients);
-		Accounts = loadAccounts(Clients);
-		displayAccounts(Accounts);
+		clients = loadClients(nbClient);
+		displayClients(clients);
+		accounts = loadAccounts(clients);
+		displayAccounts(accounts);
+		accountTable = loadHashtable(accounts);
+		displayAccountTable(accountTable);
 	}
 
 	public static List<Client> loadClients(int nbClient) {
@@ -66,5 +70,22 @@ public class Main {
 		for(Account a : listAccount) {
 			System.out.println(a.toString());
 		}
+	}
+	
+	// 1.3.1 Adaptation of the table of accounts
+	
+	public static Hashtable<Integer, Account> loadHashtable(List<Account> listAccount) {
+		accountTable = new Hashtable<Integer, Account>();
+		for(Account a : listAccount) {
+			accountTable.put(a.getAccountNumber(), a);
+		}
+		return accountTable;
+	}
+	
+	public static void displayAccountTable(Hashtable<Integer, Account> listAccountTable) {
+		listAccountTable.entrySet()
+		.stream()
+		.sorted((elem1, elem2) -> -elem1.getValue().getBalance().compareTo(elem2.getValue().getBalance()))
+		.forEach(elem -> System.out.println(elem.toString()));
 	}
 }
