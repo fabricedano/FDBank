@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class Account {
 
 	protected String label;
-	protected double balance;
+	protected Flow balance;
 	protected int accountNumber;
 	protected Client client;
 	private static AtomicInteger atomicInteger = new AtomicInteger(0);
@@ -33,11 +33,11 @@ public abstract class Account {
 		this.label = label;
 	}
 
-	public Double getBalance() {
+	public Flow getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Double balance) {
+	public void setBalance(Flow balance) {
 		this.balance = balance;
 	}
 
