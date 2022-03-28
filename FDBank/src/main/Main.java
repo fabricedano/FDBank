@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.function.Predicate;
 
 import components.Account;
 import components.Client;
@@ -41,7 +42,9 @@ public class Main {
 		accounts = loadAccounts(clients);
 		displayAccounts(accounts);
 		accountTable = loadHashtable(accounts);
-		displayAccountTable(accountTable);
+		//displayAccountTable(accountTable);
+		flows = loadFlow(accounts);
+		updateFlow(flows, accountTable);
 	}
 
 	public static List<Client> loadClients(int nbClient) {
@@ -92,7 +95,7 @@ public class Main {
 	public static void displayAccountTable(Hashtable<Integer, Account> listAccountTable) {
 		listAccountTable.entrySet()
 		.stream()
-		.sorted((elem1, elem2) -> -elem1.getValue().getBalance().compareTo(elem2.getValue().getBalance()))
+		.sorted((elem1, elem2) -> elem1.getValue().getBalance().compareTo(elem2.getValue().getBalance()))
 		.forEach(elem -> System.out.println(elem.toString()));
 	}
 	
@@ -120,5 +123,19 @@ public class Main {
 				listAccount.get(1).getAccountNumber());
 		result.add(transfer);
 		return result;
+	}
+	
+	// // 1.3.5 Updating accounts
+	public static void updateFlow(List<Flow> listFlow, Hashtable<Integer, Account> listAccountTable) {
+		for(Flow f: listFlow) {
+			listAccountTable.get(f.getTargetAccountNumber()).setBalance(f);
+		}
+		Predicate<Account> ngBalance = x -> x.getBalance() < 0;
+		listAccountTable.values()
+		.stream()
+		.filter(ngBalance)
+		.forEach(elem -> System.out.println("Balance for" + elem.getAccountNumber() + " is negative" ));
+		
+		displayAccountTable(listAccountTable);
 	}
 }

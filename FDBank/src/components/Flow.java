@@ -54,6 +54,29 @@ public abstract class Flow {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	
+
+	public String getComments() {
+		return comments;
+	}
+
+	public int getIdentifier() {
+		return identifier;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public int getTargetAccountNumber() {
+		return targetAccountNumber;
+	}
+
+	public boolean isEffect() {
+		return effect;
+	}
+
+	public LocalDateTime getDate() {
+		return date;
+	}
 	
 }
