@@ -3,7 +3,7 @@
  */
 package components;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Fabrice
@@ -12,8 +12,8 @@ import java.sql.Date;
  */
 public class Debit extends Flow {
 
-	public Debit(String comments, int identifier, float amount, int targetAccountNumber, boolean effect, Date date) {
-		super(comments, identifier, amount, targetAccountNumber, effect, date);
+	public Debit(String comments, double amount, int targetAccountNumber, boolean effect, LocalDateTime date) {
+		super(comments, amount, targetAccountNumber, effect, date);
 	}
 
 }

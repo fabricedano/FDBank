@@ -3,6 +3,8 @@
  */
 package main;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -10,8 +12,12 @@ import java.util.List;
 
 import components.Account;
 import components.Client;
+import components.Credit;
 import components.CurrentAccount;
+import components.Debit;
+import components.Flow;
 import components.SavingsAccount;
+import components.Transfer;
 
 /**
  * @author Fabrice
@@ -23,6 +29,7 @@ public class Main {
 	static List<Client> clients;
 	static List<Account> accounts;
 	static Hashtable<Integer, Account> accountTable;
+	static List<Flow> flows;
 	
 	/**
 	 * @param args
@@ -87,5 +94,31 @@ public class Main {
 		.stream()
 		.sorted((elem1, elem2) -> -elem1.getValue().getBalance().compareTo(elem2.getValue().getBalance()))
 		.forEach(elem -> System.out.println(elem.toString()));
+	}
+	
+	// 1.3.4 Creation of the flow array
+	
+	public static List<Flow> loadFlow(List<Account> listAccount) {
+		List<Flow> result = new ArrayList<>();
+		LocalDateTime date = LocalDateTime.now().plusDays(2);
+		Flow debit = new Debit("retrait de 50", 50.0, listAccount.get(0).getAccountNumber(), false, date);
+		result.add(debit);
+		for(Account a : listAccount) {
+			if("Current".equals(a.getLabel())) {
+				Flow credit = new Credit("ajout de 100.50", 100.50, a.getAccountNumber(), false, date);
+				result.add(credit);
+			} else {
+				Flow credit = new Credit("ajout de 1500.0", 1500.0, a.getAccountNumber(), false, date);
+				result.add(credit);
+			}
+		}
+		Flow transfer = new Transfer("transfer de 50.0",
+				50.0,
+				listAccount.get(0).getAccountNumber(),
+				false,
+				date,
+				listAccount.get(1).getAccountNumber());
+		result.add(transfer);
+		return result;
 	}
 }
