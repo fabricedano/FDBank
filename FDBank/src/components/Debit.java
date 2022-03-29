@@ -5,6 +5,8 @@ package components;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Fabrice
  *
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
  */
 public class Debit extends Flow {
 
-	public Debit(String comments, double amount, int targetAccountNumber, boolean effect, LocalDateTime date) {
+	public Debit(@JsonProperty("comments")String comments, @JsonProperty("amount")double amount, @JsonProperty("targetAccountNumber")int targetAccountNumber, @JsonProperty("effect")boolean effect, @JsonProperty("date")LocalDateTime date) {
 		super(comments, amount, targetAccountNumber, effect, date);
 	}
 

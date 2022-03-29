@@ -6,13 +6,16 @@ package components;
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * @author Fabrice
  *
  * 1.3.2 Creation of the Flow class
  */
 public abstract class Flow {
-	
 	private String comments;
 	private int identifier;
 	private double amount;
@@ -21,7 +24,7 @@ public abstract class Flow {
 	private LocalDateTime date;
 	private static AtomicInteger atomicInteger = new AtomicInteger(0);
 	
-	public Flow(String comments, double amount, int targetAccountNumber, boolean effect, LocalDateTime date) {
+	public Flow(@JsonProperty("comments")String comments, @JsonProperty("amount")double amount, @JsonProperty("targetAccountNumber")int targetAccountNumber, @JsonProperty("effect")boolean effect, @JsonProperty("date")LocalDateTime date) {
 		super();
 		this.comments = comments;
 		this.amount = amount;

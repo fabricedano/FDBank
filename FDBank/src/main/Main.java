@@ -3,13 +3,25 @@
  */
 package main;
 
-import java.sql.Date;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
 
 import components.Account;
 import components.Client;
@@ -30,7 +42,7 @@ public class Main {
 	static List<Client> clients;
 	static List<Account> accounts;
 	static Hashtable<Integer, Account> accountTable;
-	static List<Flow> flows;
+	static List<Flow> flows; 
 	
 	/**
 	 * @param args
@@ -137,5 +149,42 @@ public class Main {
 		.forEach(elem -> System.out.println("Balance for" + elem.getAccountNumber() + " is negative" ));
 		
 		displayAccountTable(listAccountTable);
+	}
+	
+	// 2.1 JSON file of flows
+	public static List<Flow> loadJsonFile() {
+		Path path = Paths.get("src","flows.json");
+		File file = new File(path.toString());
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> map;
+		try {
+			map = mapper.readValue(file, Map.class);
+			for(Map.Entry<String, Object> entry : map.entrySet()) {
+				if("debit".equals(entry.getKey())) {
+					//Flow debit = new Debit(entry.getValue(), 50.0, listAccount.get(0).getAccountNumber(), false, date);
+				}
+			}
+		} catch (StreamReadException e) {
+			e.printStackTrace();
+		} catch (DatabindException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// 2.2 XML file of account
+	public static List<Account> loadXmlFile() {
+		Path path = Paths.get("src/accounts.xml");
+		try {
+			Account account = new XmlMapper().readValue(path.toFile().toString(), Account.class);
+			String json = new ObjectMapper().writeValueAsString(account);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

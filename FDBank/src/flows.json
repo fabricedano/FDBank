@@ -1,0 +1,37 @@
+{
+    "debit": [
+     {
+         "comments": "retrait de 50",
+         "amount": "50.0",
+         "targetAccountNumber": "1",
+         "effect": "false",
+         "date": "2022-03-29T21:19:51.439646300"
+     }
+    ],
+    "credit": [
+     {
+         "comments": "ajout de 100.50",
+         "amount": "100.50",
+         "targetAccountNumber": "1",
+         "effect": "false",
+         "date": "2022-03-29T21:19:51.439646300"
+     },
+     {
+         "comments": "ajout de 1500.0",
+         "amount": "1500.0",
+         "targetAccountNumber": "2",
+         "effect": "false",
+         "date": "2022-03-29T21:19:51.439646300"
+     }
+    ],
+    "transfer": [
+     {
+         "comments": "transfer de 50.0",
+         "amount": "50.0",
+         "targetAccountNumber": "1",
+         "effect": "false",
+         "date": "2022-03-29T21:19:51.439646300",
+         "accountNumber": "2"
+     }
+    ]
+}
